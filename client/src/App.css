@@ -1,0 +1,41 @@
+body{
+    background: #313131;
+}
+
+nav{
+    max-width: 1000px;
+    background: rgb(29, 128, 118);
+    margin: 0 auto;
+}
+
+.navbar-brand{
+    font-size: 30px;
+    font-family:'Nunito';
+    color: #E8E8E8;
+}
+
+.navbar-toggler-icon{
+    background-image: url('https://mdbootstrap.com/img/svg/hamburger1.svg?color=fff');
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+.navbar-nav:first-child{
+    border-top: solid white 0.5px;
+}
+
+.nav-link{
+    font-size: 20px;
+    font-family: 'Trebuchet MS';
+    color: white;
+}
+
+.nav-link:hover{
+    background: lightgray;
+    color: black;
+}

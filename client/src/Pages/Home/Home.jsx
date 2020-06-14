@@ -1,28 +1,33 @@
 import React, {Component} from 'react';
-import WeeklyList from './Components/WeeklyList';
+import Navbar from '../Navbar';
 import './Home.css';
 
 class Home extends Component{
     render(){
+        const nav1={path:'/', name: 'Daily Tracker'};
+        const nav2={path:'/', name: 'Progress History'};
+        const nav3={path:'/', name: 'Goals'};
+
+        /* const objective= <div className='objective'>
+                            <span>Finish LeetCoding Challenge 7/7 times 999999999999999</span><i className='fa trash'> &#xf014;</i>
+                        </div>*/
+
+        const noObjectives=<div className='noObjectives'><h2 className='ml-3'>No Objectives set for this Week</h2></div>
+
         return(
             <div className='home text-white'>
-                <nav className='navbar'>
-                    <h2 className='navbar-brand ml-3 mt-2'>Weekly Objectives</h2>
+                <Navbar nav1={nav1} nav2={nav2} nav3={nav3}/>
+                
 
-                    <button className='navbar-toggler' data-toggle='collapse' data-target='#options'>
-                        <span className='navbar-toggler-icon'></span>
-                    </button>
+                <section className='objectivesContainer mt-5 mb-5'>
+                    {noObjectives}
 
-                    <div className='collapse navbar-collapse text-center' id='options'>
-                        <ul className='navbar-nav'>
-                            <li className='nav-item active'><a className='nav-link' href='#a'>Option 1</a></li>
-                            <li className='nav-item'><a className='nav-link' href='#a'>Option 2</a></li>
-                            <li className='nav-item'><a className='nav-link' href='#a'>Option 3</a></li>
-                        </ul>
-                    </div>
-                </nav>
-
-                <WeeklyList/>
+                    <form className='addObjective container'>
+                        <label>Add New Objective</label>
+                        <input type='text' minLength='1' maxLength='64'/>
+                        <label className='addBtn btn-danger'>+</label>
+                    </form>
+                </section>
             </div>
         )
     }
