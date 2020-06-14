@@ -2,11 +2,11 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 function Navbar(props){
-    const {nav1, nav2, nav3}=props
+    const {title, nav1, nav2, nav3}=props
 
     return(
         <nav className='navbar'>
-            <h2 className='navbar-brand ml-3 mt-2'>Weekly Objectives</h2>
+            <h2 className='navbar-brand ml-3 mt-2'>{title}</h2>
 
             <button className='navbar-toggler' data-toggle='collapse' data-target='#options'>
                 <span className='navbar-toggler-icon'></span>

@@ -4,7 +4,8 @@ import './Home.css';
 
 class Home extends Component{
     render(){
-        const nav1={path:'/', name: 'Daily Tracker'};
+        const title='Weekly Objectives';
+        const nav1={path:'/daily', name: 'Daily Tracker'};
         const nav2={path:'/', name: 'Progress History'};
         const nav3={path:'/', name: 'Goals'};
 
@@ -16,8 +17,7 @@ class Home extends Component{
 
         return(
             <div className='home text-white'>
-                <Navbar nav1={nav1} nav2={nav2} nav3={nav3}/>
-                
+                <Navbar title ={title} nav1={nav1} nav2={nav2} nav3={nav3}/>
 
                 <section className='objectivesContainer mt-5 mb-5'>
                     {noObjectives}
