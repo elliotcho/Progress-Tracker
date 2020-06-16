@@ -1,35 +1,31 @@
-.dailyTracker .dailyContainer{
+.goals .goalsContainer{
     max-width: 800px;
     margin: 0 auto;
 }
 
-.dailyTracker .day{
+.goals .tier{
     border: solid lightgray;
     padding: 15px;
     margin-bottom: 100px;
 }
 
-.dailyTracker .dayLabel{
+.goals .tierLabel{
     font-family: 'Trebuchet MS';
     margin-bottom: 50px;
 }
 
-.dailyTracker .adder{
-    text-align: left;
-}
-
-.dailyTracker .adder label{
+.goals .adder label{
     font-size: 0.8em;
     font-weight: bold;
 }
 
-.dailyTracker .adder .addBtn{
+.goals .adder .addBtn{
     font-size: 20px;
     font-weight: normal;
 }
 
 @media screen and (min-width: 600px){
-    .dailyTracker .adder label{
+    .goals .adder label{
         font-size: 1.0em;
         font-weight: normal;
     }

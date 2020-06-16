@@ -11,7 +11,7 @@ class Home extends Component{
         const nav3={path:'/goals', name: 'Goals'};
 
         const objective= <div className='item'>
-                            <span>Finish LeetCoding Challenge 7/7 times 999999999999999</span><i className='fa trash'> &#xf014;</i>
+                            <span>Finish LeetCoding Challenge 7/7 times</span><i className='fa trash'> &#xf014;</i>
                         </div>
 
         const noObjectives=<div className='noitem'><h2 className='ml-3'>No objectives set for this week</h2></div>
@@ -21,7 +21,6 @@ class Home extends Component{
                 <Navbar title ={title} nav1={nav1} nav2={nav2} nav3={nav3}/>
 
                 <section className='objectivesContainer mt-5 mb-5'>
-                    {objective}
                     {objective}
 
                     <Adder msg='Add New Objective'/>
