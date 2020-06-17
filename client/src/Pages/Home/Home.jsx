@@ -14,6 +14,7 @@ class Home extends Component{
 
         this.handleSubmit=this.handleSubmit.bind(this);
         this.deleteObjective=this.deleteObjective.bind(this);
+        this.checkObjective=this.checkObjective.bind(this);
     }
 
     componentDidMount(){
@@ -32,12 +33,32 @@ class Home extends Component{
         for(let i=0;i<objectives.length;i++){
             if(objectives[i]._id === id){
                 objectives.splice(i, 1);
+                break;
             }
         }
 
         this.setState({objectives}, ()=>{
             axios.post('/deleteobj', {id}, {headers: {'Content-Type': 'application/json'}})
             .then(() => {});
+        });
+    }
+
+    checkObjective(id){
+        const objectives=this.state.objectives;
+
+        let checked;
+
+        for(let i=0;i<objectives.length;i++){
+            if(objectives[i]._id === id){
+                objectives[i].checked=!objectives[i].checked;
+                checked=objectives[i].checked;
+                break;
+            }
+        }
+
+        this.setState({objectives}, ()=>{
+            axios.post('/checkobj', {id, checked}, {headers: {'Content-Type': 'application/json'}})
+            .then(()=>{});
         });
     }
 
@@ -64,15 +85,25 @@ class Home extends Component{
         const nav2={path:'/progress', name: 'Progress History'};
         const nav3={path:'/goals', name: 'Goals'};
 
-        const objectives = this.state.objectives.map(objective => 
-            <div className='item' key={objective._id}>
-                <span>{objective.description}</span>
+        const objectives = this.state.objectives.map(objective => {
+            let style;
 
-                <i className='fa trash' onClick={()=>{this.deleteObjective(objective._id)}}>
-                     &#xf014;
-                </i>
-            </div>
-        );
+            if(objective.checked){
+                style={background: 'lightgreen', color: 'black'};
+            }
+            
+            return(
+                <div className='item' key={objective._id} onClick={()=>{this.checkObjective(objective._id)}} style={style}>
+                    <span>
+                        {objective.description}
+                    </span>
+
+                    <i className='fa trash' onClick={()=>{this.deleteObjective(objective._id)}}>
+                         &#xf014;
+                    </i>
+                </div>
+            )
+        });
                        
 
         const noObjectives=<div className='noitem'><h2 className='ml-3'>No objectives set for this week</h2></div>

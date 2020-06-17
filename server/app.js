@@ -25,11 +25,13 @@ app.get('/', (req, res) => {
 const {
     loadWeeklyObjectives,
     addWeeklyObjective,
-    deleteWeeklyObjective
+    deleteWeeklyObjective,
+    checkWeeklyObjective
 }=require('./handlers/weekly');
 
 app.post('/loadobj', loadWeeklyObjectives);
 app.post('/addobj', addWeeklyObjective);
 app.post('/deleteobj', deleteWeeklyObjective);
+app.post('/checkobj', checkWeeklyObjective);
 
 app.listen(3000);

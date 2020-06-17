@@ -8,7 +8,8 @@ exports.loadWeeklyObjectives = (req , res) =>{
 
 exports.addWeeklyObjective= (req, res) =>{
     const newObjective=new WeeklyObjective({
-        description: req.body.description
+        description: req.body.description,
+        checked: false
     });
 
     newObjective.save().then(()=>{
@@ -18,6 +19,12 @@ exports.addWeeklyObjective= (req, res) =>{
 
 exports.deleteWeeklyObjective = (req, res) => {
     WeeklyObjective.deleteOne({_id: req.body.id}).then(()=>{
+        res.json({msg: 'Success'});
+    });
+}
+
+exports.checkWeeklyObjective = (req, res) =>{
+    WeeklyObjective.updateOne({_id: req.body.id}, {checked: req.body.checked}).then(()=>{
         res.json({msg: 'Success'});
     });
 }
