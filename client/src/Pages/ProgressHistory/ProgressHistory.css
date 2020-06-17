@@ -1,0 +1,68 @@
+.progressHistory{
+    overflow: hidden;
+}
+
+.progressHistory .progressContainer{
+    max-width: 800px;
+    margin: 80px auto;
+    border: lightgray solid;
+}
+
+.progressHistory .nav-tabs li{
+    width: 33.3%;
+    border-bottom: 0;
+}
+
+.progressHistory .nav-tabs a{
+    font-size: 16px;
+    border-radius: 0;
+    border-color: white;
+    font-family: 'Nunito';
+}
+
+.progressHistory .nav-tabs a:hover{
+    background: gray;
+    color: white;
+}
+
+.settings p{
+    font-family: 'Nunito';
+    font-size: 20px;
+    padding: 10px;
+    margin: 0;
+    border-bottom: solid lightgray;
+    cursor: pointer;
+}
+
+.settings p:hover{
+    background: lightgreen;
+    color: black;
+}
+
+.dailyProgress, .weeklyProgress{
+    overflow-y: auto;
+}
+
+.dailyProgress h3, 
+.weeklyProgress h3{
+    margin-top: 50px;
+    margin-left: 10px;
+    font-family: 'Nunito';
+}
+
+.dailyProgress h3:first-child,
+.weeklyProgress h3:first-child{
+    margin-top: 10px;
+}
+
+.dailyProgress p, .weeklyProgress p{
+    margin-left: 10px;
+    font-family:'Nunito';
+    font-size: 1.1em;
+}
+
+@media screen and (min-width: 600px){
+    .progressHistory .nav-tabs a{
+        font-size: 18px;
+    }
+}
