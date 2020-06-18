@@ -11,8 +11,15 @@ const DailyTaskSchema=new Schema({
     description: String
 });
 
+const GoalSchema = new Schema({
+    tier: String,
+    description: String
+});
+
 const WeeklyObjective=mongoose.model('weeklyobjective', WeeklyObjectiveSchema);
 const DailyTask=mongoose.model('dailytask', DailyTaskSchema);
+const Goal=mongoose.model('goal', GoalSchema);
 
 exports.WeeklyObjective=WeeklyObjective;
 exports.DailyTask=DailyTask;
+exports.Goal=Goal;

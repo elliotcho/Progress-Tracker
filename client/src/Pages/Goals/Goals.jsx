@@ -1,18 +1,71 @@
 import React, {Component} from 'react';
 import Navbar from '../Navbar';
-import Adder from '../Adder';
 import './Goals.css';
 
+const axios=require('axios');
+
 class Goals extends Component{
+    constructor(){
+        super();
+
+        this.state={
+            goals: [[], [], [], [], []],
+            TierS: '',
+            TierA: '',
+            TierB: '',
+            TierC: '',
+            TierD: ''
+        }
+
+        this.handleChange=this.handleChange.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
+    }
+
+    handleChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+
+        const tier=e.target.name;
+        const goal=this.state[tier];
+
+        if(goal===''){return;}
+
+        this.setState({[tier]: ''});
+
+        axios.post('/addgoal', {tier, description: goal}, {headers: {'Content-Type': 'application/json'}})
+        .then(response =>{
+            const {idx, _doc}=response.data;
+           
+            const goals=this.state.goals;
+
+            goals[idx].push(
+                <div className='item' key={_doc._id}>
+                    <span>
+                        {_doc.description}
+                    </span>
+                    
+                    <i className='fa trash' onClick={()=>{this.deleteTask(_doc._id)}}> 
+                        &#xf014;
+                    </i>
+                </div>
+            );
+
+            this.setState({goals});
+        });
+    }
+
     render(){
         const title='Goals';
         const nav1={path:'/', name: 'Weekly Objectives'};
         const nav2={path:'/daily', name: 'Daily Tracker'};
         const nav3={path:'/progress', name: 'Progress History'};
-   
-        const goal=<div className='item'>
-                        <span>Improve web development skills</span><i className='fa trash'> &#xf014;</i>
-                    </div>
+
+        const {goals, TierS, TierA, TierB, TierC, TierD} = this.state;
 
         const noGoals=<div className='noitem'><h2 className='ml-3'>No goals set for this tier</h2></div>
 
@@ -23,32 +76,62 @@ class Goals extends Component{
                 <section className='goalsContainer mt-5 mb-5'>
                     <div className='tier'>
                         <label className='tierLabel'>Tier S</label>
-                        {goal}
-                        <Adder msg='You must do'/>
+                        
+                        {goals[0].length!==0? goals[0]: noGoals}
+
+                        <form className='adder container' onSubmit={this.handleSubmit} name='TierS'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='TierS' value={TierS} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
 
                     <div className='tier'>
                         <label className='tierLabel'>Tier A</label>
-                        {noGoals}
-                        <Adder msg='You want to do'/>
+                        
+                        {goals[1].length!==0? goals[1]: noGoals}
+
+                        <form className='adder container' onSubmit={this.handleSubmit} name='TierA'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='TierA' value={TierA} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
-                    
+
                     <div className='tier'>
                         <label className='tierLabel'>Tier B</label>
-                        {noGoals}
-                        <Adder msg='You would like to do'/>
+                        
+                        {goals[2].length!==0? goals[2]: noGoals}
+
+                        <form className='adder container' onSubmit={this.handleSubmit} name='TierB'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='TierB' value={TierB} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
-                    
+
                     <div className='tier'>
                         <label className='tierLabel'>Tier C</label>
-                        {noGoals}
-                        <Adder msg="You could do"/>
+                        
+                        {goals[3].length!==0? goals[3]: noGoals}
+
+                        <form className='adder container' onSubmit={this.handleSubmit} name='TierC'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='TierC' value={TierC} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
 
                     <div className='tier'>
                         <label className='tierLabel'>Tier D</label>
-                        {noGoals}
-                        <Adder msg="It'd be nice to do"/>
+                        
+                        {goals[4].length!==0? goals[4]: noGoals}
+
+                        <form className='adder container' onSubmit={this.handleSubmit} name='TierD'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='TierD' value={TierD} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
                 </section>
             </div>

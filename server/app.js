@@ -35,6 +35,10 @@ const {
     deleteDailyTask
 } =require('./handlers/daily');
 
+const {
+    addGoal
+} =require('./handlers/goals');
+
 app.post('/loadobj', loadWeeklyObjectives);
 app.post('/addobj', addWeeklyObjective);
 app.post('/deleteobj', deleteWeeklyObjective);
@@ -43,5 +47,7 @@ app.post('/checkobj', checkWeeklyObjective);
 app.post('/loadtask', loadDailyTask);
 app.post('/addtask', addDailyTask);
 app.post('/deletetask', deleteDailyTask);
+
+app.post('/addgoal', addGoal);
 
 app.listen(3000);

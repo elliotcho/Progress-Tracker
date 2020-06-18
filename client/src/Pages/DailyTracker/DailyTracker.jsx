@@ -86,7 +86,7 @@ class DailyTracker extends Component{
 
         this.setState({[day]: ''});
 
-        axios.post('/addTask', {day, description: value}, {headers: {'Content-Type': 'application/json'}})
+        axios.post('/addtask', {day, description: value}, {headers: {'Content-Type': 'application/json'}})
         .then(response =>{
             const {idx, _doc}=response.data;
            
