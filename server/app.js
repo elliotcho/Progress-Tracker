@@ -29,9 +29,15 @@ const {
     checkWeeklyObjective
 }=require('./handlers/weekly');
 
+const {
+    addDailyTask
+} =require('./handlers/daily');
+
 app.post('/loadobj', loadWeeklyObjectives);
 app.post('/addobj', addWeeklyObjective);
 app.post('/deleteobj', deleteWeeklyObjective);
 app.post('/checkobj', checkWeeklyObjective);
+
+app.post('/addtask', addDailyTask);
 
 app.listen(3000);

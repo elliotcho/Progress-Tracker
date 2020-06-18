@@ -1,18 +1,66 @@
 import React, {Component} from 'react';
 import Navbar from '../Navbar';
-import Adder from '../Adder';
 import './DailyTracker.css';
 
+const axios=require('axios');
+
 class DailyTracker extends Component{
+    constructor(){
+        super();
+
+        this.state={
+            tasks: [[], [], [], [], [], [], []],
+            Monday: '',
+            Tuesday: '',
+            Wednesday: '',
+            Thursday: '',
+            Friday: '',
+            Saturday: '',
+            Sunday: ''
+        }
+
+        this.handleChange=this.handleChange.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
+    }
+ 
+    handleChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+
+        const day = e.target.name;
+        const value= this.state[day];
+
+        if(value===''){return}
+
+        this.setState({[day]: ''});
+
+        axios.post('/addTask', {day, description: value}, {headers: {'Content-Type': 'application/json'}})
+        .then(response =>{
+            const {idx, _doc}=response.data;
+            const tasks=this.state.tasks;
+
+            tasks[idx].push(
+                <div className='item'>
+                    <span>{_doc.description}</span><i className='fa trash'> &#xf014;</i>
+                </div>
+            );
+
+            this.setState({tasks});
+        });
+    }
+
     render(){
         const title='Daily Tracker';
         const nav1={path:'/', name: 'Weekly Objectives'};
         const nav2={path:'/progress', name: 'Progress History'};
         const nav3={path:'/goals', name: 'Goals'};
 
-        const task=<div className='item'>
-                        <span>Finished working out arms and abs</span><i className='fa trash'> &#xf014;</i>
-                    </div>
+        const {tasks, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday} =this.state;
 
         const noTasks=<div className='noitem'><h2 className='ml-3'>No tasks completed today</h2></div>
 
@@ -23,44 +71,86 @@ class DailyTracker extends Component{
                 <section className='dailyContainer mt-5 mb-5'>
                     <div className='day'>
                         <label className='dayLabel'>Monday</label>
-                        {task}
-                        <Adder msg='What did you do today?'/>
+                        
+                        {tasks[0].length!==0? tasks[0]: noTasks}
+
+                        <form className='adder container' onSubmit={this.handleSubmit} name='Monday'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='Monday' value={Monday} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
 
                     <div className='day'>
                         <label className='dayLabel'>Tuesday</label>
-                        {noTasks}
-                        <Adder msg='What did you do today?'/>
+
+                        {tasks[1].length!==0? tasks[1]: noTasks}
+
+                        <form className='adder container' onSubmit={this.handleSubmit} name='Tuesday'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='Tuesday' value={Tuesday} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
                     
                     <div className='day'>
                         <label className='dayLabel'>Wednesday</label>
-                        {noTasks}
-                        <Adder msg='What did you do today?'/>
+
+                        {tasks[2].length!==0? tasks[2]: noTasks}
+                        
+                        <form className='adder container' onSubmit={this.handleSubmit} name='Wednesday'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='Wednesday' value={Wednesday} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
                     
                     <div className='day'>
                         <label className='dayLabel'>Thursday</label>
-                        {noTasks}
-                        <Adder msg='What did you do today?'/>
+
+                        {tasks[3].length!==0? tasks[3]: noTasks}
+                        
+                        <form className='adder container' onSubmit={this.handleSubmit} name='Thursday'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='Thursday' value={Thursday} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
 
                     <div className='day'>
                         <label className='dayLabel'>Friday</label>
-                        {noTasks}
-                        <Adder msg='What did you do today?'/>
+                        
+                        {tasks[4].length!==0? tasks[4]: noTasks}
+                        
+                        <form className='adder container' onSubmit={this.handleSubmit} name='Friday'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='Friday' value={Friday} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
 
                     <div className='day'>
                         <label className='dayLabel'>Saturday</label>
-                        {noTasks}
-                        <Adder msg='What did you do today?'/>
+
+                        {tasks[5].length!==0? tasks[5]: noTasks}
+                        
+                        <form className='adder container' onSubmit={this.handleSubmit} name='Saturday'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='Saturday' value={Saturday} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
 
                     <div className='day'>
                         <label className='dayLabel'>Sunday</label>
-                        {noTasks}
-                        <Adder msg='What did you do today?'/>
+
+                        {tasks[6].length!==0? tasks[6]: noTasks}
+                       
+                        <form className='adder container' onSubmit={this.handleSubmit} name='Sunday'>
+                            <label>Add New Objective</label>
+                            <input type='text' minLength='1' maxLength='64' name='Sunday' value={Sunday} onChange={this.handleChange}/>
+                            <button className='addBtn'>+</button>
+                        </form>
                     </div>
                 </section>
             </div>

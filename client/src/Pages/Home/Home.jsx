@@ -67,6 +67,10 @@ class Home extends Component{
 
         const {value} =e.target.objective;
 
+        if(value.length===0){
+            return;
+        }
+
         e.target.objective.value="";
 
         axios.post('/addobj', {description: value}, {headers: {'Content-Type': 'application/json'}})
