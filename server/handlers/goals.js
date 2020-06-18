@@ -8,6 +8,20 @@ const map={
     'TierD': 4
 }
 
+exports.loadGoal=(req, res)=>{
+    Goal.find({}).then(result =>{
+        const goals=result.map(goal =>{
+            const modified={...goal._doc};
+            
+            modified.idx=map[modified.tier];
+
+            return modified;
+        });
+
+        res.json(goals);
+    });
+}
+
 exports.addGoal=(req, res) =>{
     const newGoal=new Goal({
         tier: req.body.tier,
@@ -19,3 +33,8 @@ exports.addGoal=(req, res) =>{
     });
 }
 
+exports.deleteGoal = (req, res) =>{
+    Goal.deleteOne({_id: req.body.id}).then(()=>{
+        res.json('Success');
+    });
+};

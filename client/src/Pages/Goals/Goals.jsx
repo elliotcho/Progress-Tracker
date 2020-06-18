@@ -18,12 +18,60 @@ class Goals extends Component{
         }
 
         this.handleChange=this.handleChange.bind(this);
+        this.deleteGoal=this.deleteGoal.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+    }
+
+    componentDidMount(){
+        axios.post('/loadgoal').then(response =>{
+            const {goals} = this.state;
+
+            response.data.forEach(goal => {
+                const {_id, idx, description} = goal;
+
+                goals[idx].push(
+                    <div className='item' key={_id}>
+                        <span>
+                            {description}
+                        </span>
+                        
+                        <i className='fa trash' onClick={()=>{this.deleteGoal(_id)}}> 
+                            &#xf014;
+                        </i>
+                    </div>
+                );
+            });
+
+            this.setState({goals});
+        });
     }
 
     handleChange(e){
         this.setState({
             [e.target.name]: e.target.value
+        });
+    }
+
+   
+    deleteGoal(id){
+        if(!window.confirm("Are you sure you want to delete this goal?")){return;}
+
+        const goals=this.state.goals;
+
+        for(let i=0;i<goals.length;i++){
+            let tier=goals[i];
+
+            for(let j=0;j<tier.length;j++){
+                if(tier[j].key===id){
+                    tier.splice(j, 1);
+                    break;
+                }
+            }
+        }
+
+        this.setState({goals}, ()=>{
+            axios.post('/deletegoal', {id}, {headers: {'Content-Type': 'application/json'}})
+            .then(()=>{});
         });
     }
 
@@ -49,7 +97,7 @@ class Goals extends Component{
                         {_doc.description}
                     </span>
                     
-                    <i className='fa trash' onClick={()=>{this.deleteTask(_doc._id)}}> 
+                    <i className='fa trash' onClick={()=>{this.deleteGoal(_doc._id)}}> 
                         &#xf014;
                     </i>
                 </div>
