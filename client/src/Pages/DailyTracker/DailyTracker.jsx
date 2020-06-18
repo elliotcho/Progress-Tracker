@@ -20,6 +20,7 @@ class DailyTracker extends Component{
         }
 
         this.handleChange=this.handleChange.bind(this);
+        this.deleteTask=this.deleteTask.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
     }
 
@@ -28,11 +29,17 @@ class DailyTracker extends Component{
             const {tasks} = this.state;
 
             response.data.forEach(task => {
-                const {idx, description} = task;
+                const {_id, idx, description} = task;
 
                 tasks[idx].push(
-                    <div className='item'>
-                        <span>{description}</span><i className='fa trash'> &#xf014;</i>
+                    <div className='item' key={_id}>
+                        <span>
+                            {description}
+                        </span>
+                        
+                        <i className='fa trash' onClick={()=>{this.deleteTask(_id)}}> 
+                            &#xf014;
+                        </i>
                     </div>
                 );
             });
@@ -44,6 +51,28 @@ class DailyTracker extends Component{
     handleChange(e){
         this.setState({
             [e.target.name]: e.target.value
+        });
+    }
+
+    deleteTask(id){
+        if(!window.confirm("Are you sure you want to delete this task?")){return;}
+
+        const tasks=this.state.tasks;
+        
+        for(let i=0;i<tasks.length;i++){
+            let day=tasks[i];
+
+            for(let j=0;j<day.length;j++){
+                if(day[j].key===id){
+                    day.splice(j, 1);
+                    break;
+                }
+            }
+        }
+
+        this.setState({tasks}, ()=>{
+            axios.post('/deletetask', {id}, {headers: {'Content-Type': 'application/json'}})
+            .then(()=>{});
         });
     }
 
@@ -60,11 +89,18 @@ class DailyTracker extends Component{
         axios.post('/addTask', {day, description: value}, {headers: {'Content-Type': 'application/json'}})
         .then(response =>{
             const {idx, _doc}=response.data;
+           
             const tasks=this.state.tasks;
 
             tasks[idx].push(
-                <div className='item'>
-                    <span>{_doc.description}</span><i className='fa trash'> &#xf014;</i>
+                <div className='item' key={_doc._id}>
+                    <span>
+                        {_doc.description}
+                    </span>
+                    
+                    <i className='fa trash' onClick={()=>{this.deleteTask(_doc._id)}}> 
+                        &#xf014;
+                    </i>
                 </div>
             );
 

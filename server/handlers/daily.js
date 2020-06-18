@@ -34,3 +34,9 @@ exports.addDailyTask=(req, res) =>{
         res.json({...newDailyTask, idx: map[req.body.day]});
     });
 }
+
+exports.deleteDailyTask = (req, res) =>{
+    DailyTask.deleteOne({_id: req.body.id}).then(()=>{
+        res.json({msg: 'Success'});
+    });
+}
