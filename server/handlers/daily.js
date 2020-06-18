@@ -10,6 +10,20 @@ const map ={
     'Sunday': 6
 }
 
+exports.loadDailyTask=(req, res) =>{
+    DailyTask.find({}).then(result =>{
+        const tasks=result.map(task => { 
+            const modified = {...task._doc};
+            
+            modified.idx=map[modified.day];
+            
+            return modified;
+        });
+
+        res.json(tasks);
+    });
+}
+
 exports.addDailyTask=(req, res) =>{
     const newDailyTask = new DailyTask({
         day: req.body.day,

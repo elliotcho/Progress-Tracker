@@ -30,6 +30,7 @@ const {
 }=require('./handlers/weekly');
 
 const {
+    loadDailyTask,
     addDailyTask
 } =require('./handlers/daily');
 
@@ -38,6 +39,7 @@ app.post('/addobj', addWeeklyObjective);
 app.post('/deleteobj', deleteWeeklyObjective);
 app.post('/checkobj', checkWeeklyObjective);
 
+app.post('/loadtask', loadDailyTask);
 app.post('/addtask', addDailyTask);
 
 app.listen(3000);

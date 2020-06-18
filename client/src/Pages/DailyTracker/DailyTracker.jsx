@@ -22,6 +22,24 @@ class DailyTracker extends Component{
         this.handleChange=this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
     }
+
+    componentDidMount(){
+        axios.post('/loadtask').then(response =>{
+            const {tasks} = this.state;
+
+            response.data.forEach(task => {
+                const {idx, description} = task;
+
+                tasks[idx].push(
+                    <div className='item'>
+                        <span>{description}</span><i className='fa trash'> &#xf014;</i>
+                    </div>
+                );
+            });
+
+            this.setState({tasks});
+        });
+    }
  
     handleChange(e){
         this.setState({
