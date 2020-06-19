@@ -1,13 +1,5 @@
 const {Goal} = require('../dbschema');
 
-const map={
-    'TierS': 0, 
-    'TierA': 1,
-    'TierB': 2,
-    'TierC': 3,
-    'TierD': 4
-}
-
 exports.loadGoal=(req, res)=>{
     Goal.find({}).then(result =>{
         res.json(result);
