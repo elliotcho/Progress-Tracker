@@ -12,26 +12,18 @@ const map ={
 
 exports.loadDailyTask=(req, res) =>{
     DailyTask.find({}).then(result =>{
-        const tasks=result.map(task => { 
-            const modified = {...task._doc};
-            
-            modified.idx=map[modified.day];
-            
-            return modified;
-        });
-
-        res.json(tasks);
+        res.json(result);
     });
 }
 
 exports.addDailyTask=(req, res) =>{
     const newDailyTask = new DailyTask({
         day: req.body.day,
-        description: req.body.description
+        description: req.body.description,
     });
 
-    newDailyTask.save().then(()=>{
-        res.json({...newDailyTask, idx: map[req.body.day]});
+    newDailyTask.save().then(result =>{
+        res.json(result);
     });
 }
 

@@ -4,6 +4,16 @@ import './DailyTracker.css';
 
 const axios=require('axios');
 
+const map={
+    'Monday': 0, 
+    'Tuesday': 1,
+    'Wednesday': 2,
+    'Thursday': 3, 
+    'Friday': 4,
+    'Saturday': 5,
+    'Sunday': 6
+}
+
 class DailyTracker extends Component{
     constructor(){
         super();
@@ -28,20 +38,8 @@ class DailyTracker extends Component{
         axios.post('/loadtask').then(response =>{
             const {tasks} = this.state;
 
-            response.data.forEach(task => {
-                const {_id, idx, description} = task;
-
-                tasks[idx].push(
-                    <div className='item' key={_id}>
-                        <span>
-                            {description}
-                        </span>
-                        
-                        <i className='fa trash' onClick={()=>{this.deleteTask(_id)}}> 
-                            &#xf014;
-                        </i>
-                    </div>
-                );
+            response.data.forEach(task =>{
+                tasks[map[task.day]].push(task);
             });
 
             this.setState({tasks});
@@ -63,7 +61,7 @@ class DailyTracker extends Component{
             let day=tasks[i];
 
             for(let j=0;j<day.length;j++){
-                if(day[j].key===id){
+                if(day[j]._id===id){
                     day.splice(j, 1);
                     break;
                 }
@@ -82,27 +80,15 @@ class DailyTracker extends Component{
         const day = e.target.name;
         const value= this.state[day];
 
-        if(value===''){return}
+        if(value===''){return;}
 
         this.setState({[day]: ''});
 
         axios.post('/addtask', {day, description: value}, {headers: {'Content-Type': 'application/json'}})
         .then(response =>{
-            const {idx, _doc}=response.data;
-           
             const tasks=this.state.tasks;
 
-            tasks[idx].push(
-                <div className='item' key={_doc._id}>
-                    <span>
-                        {_doc.description}
-                    </span>
-                    
-                    <i className='fa trash' onClick={()=>{this.deleteTask(_doc._id)}}> 
-                        &#xf014;
-                    </i>
-                </div>
-            );
+            tasks[map[response.data.day]].push(response.data);
 
             this.setState({tasks});
         });
@@ -114,8 +100,22 @@ class DailyTracker extends Component{
         const nav2={path:'/progress', name: 'Progress History'};
         const nav3={path:'/goals', name: 'Goals'};
 
-        const {tasks, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday} =this.state;
+        const {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday} = this.state;
 
+        const tasks = this.state.tasks.map(day =>
+                day.map(task =>
+                    <div className='item' key={task._id}>
+                        <span>
+                            {task.description}
+                        </span>
+                
+                        <i className='fa trash' onClick={()=>{this.deleteTask(task._id)}}> 
+                            &#xf014;
+                        </i>
+                    </div>
+                )
+        );
+      
         const noTasks=<div className='noitem'><h2 className='ml-3'>No tasks completed today</h2></div>
 
         return(
