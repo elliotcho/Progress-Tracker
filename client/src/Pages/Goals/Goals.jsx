@@ -4,6 +4,14 @@ import './Goals.css';
 
 const axios=require('axios');
 
+const map={
+    'TierS': 0, 
+    'TierA': 1,
+    'TierB': 2,
+    'TierC': 3,
+    'TierD': 4
+}
+
 class Goals extends Component{
     constructor(){
         super();
@@ -27,19 +35,7 @@ class Goals extends Component{
             const {goals} = this.state;
 
             response.data.forEach(goal => {
-                const {_id, idx, description} = goal;
-
-                goals[idx].push(
-                    <div className='item' key={_id}>
-                        <span>
-                            {description}
-                        </span>
-                        
-                        <i className='fa trash' onClick={()=>{this.deleteGoal(_id)}}> 
-                            &#xf014;
-                        </i>
-                    </div>
-                );
+                goals[map[goal.tier]].push(goal);
             });
 
             this.setState({goals});
@@ -62,7 +58,7 @@ class Goals extends Component{
             let tier=goals[i];
 
             for(let j=0;j<tier.length;j++){
-                if(tier[j].key===id){
+                if(tier[j]._id===id){
                     tier.splice(j, 1);
                     break;
                 }
@@ -87,21 +83,9 @@ class Goals extends Component{
 
         axios.post('/addgoal', {tier, description: goal}, {headers: {'Content-Type': 'application/json'}})
         .then(response =>{
-            const {idx, _doc}=response.data;
-           
             const goals=this.state.goals;
 
-            goals[idx].push(
-                <div className='item' key={_doc._id}>
-                    <span>
-                        {_doc.description}
-                    </span>
-                    
-                    <i className='fa trash' onClick={()=>{this.deleteGoal(_doc._id)}}> 
-                        &#xf014;
-                    </i>
-                </div>
-            );
+            goals[map[response.data.tier]].push(response.data);
 
             this.setState({goals});
         });
@@ -113,7 +97,21 @@ class Goals extends Component{
         const nav2={path:'/daily', name: 'Daily Tracker'};
         const nav3={path:'/progress', name: 'Progress History'};
 
-        const {goals, TierS, TierA, TierB, TierC, TierD} = this.state;
+        const {TierS, TierA, TierB, TierC, TierD} = this.state;
+
+        const goals=this.state.goals.map(tier =>
+            tier.map(goal =>
+                    <div className='item' key={goal._id}>
+                    <span>
+                        {goal.description}
+                    </span>
+                
+                    <i className='fa trash' onClick={()=>{this.deleteGoal(goal._id)}}> 
+                        &#xf014;
+                    </i>
+                </div>
+            )
+        );
 
         const noGoals=<div className='noitem'><h2 className='ml-3'>No goals set for this tier</h2></div>
 

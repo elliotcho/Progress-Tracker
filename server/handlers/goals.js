@@ -10,15 +10,7 @@ const map={
 
 exports.loadGoal=(req, res)=>{
     Goal.find({}).then(result =>{
-        const goals=result.map(goal =>{
-            const modified={...goal._doc};
-            
-            modified.idx=map[modified.tier];
-
-            return modified;
-        });
-
-        res.json(goals);
+        res.json(result);
     });
 }
 
@@ -29,7 +21,7 @@ exports.addGoal=(req, res) =>{
     });
 
     newGoal.save().then(result =>{
-        res.json({...result, idx: map[req.body.tier]});
+        res.json(result);
     });
 }
 
