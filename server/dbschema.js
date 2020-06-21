@@ -3,12 +3,14 @@ const Schema=mongoose.Schema;
 
 const WeeklyObjectiveSchema=new Schema({
     description: String,
-    checked: Boolean
+    checked: Boolean, 
+    date: Date
 });
 
 const DailyTaskSchema=new Schema({
     day: String,
-    description: String
+    description: String,
+    date: String
 });
 
 const GoalSchema = new Schema({

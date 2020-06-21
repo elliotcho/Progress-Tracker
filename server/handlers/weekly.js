@@ -9,7 +9,8 @@ exports.loadWeeklyObjectives = (req , res) =>{
 exports.addWeeklyObjective= (req, res) =>{
     const newObjective=new WeeklyObjective({
         description: req.body.description,
-        checked: false
+        checked: false, 
+        date: new Date().toLocaleString()
     });
 
     newObjective.save().then(()=>{
