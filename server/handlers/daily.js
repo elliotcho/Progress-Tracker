@@ -10,11 +10,11 @@ exports.addDailyTask=(req, res) =>{
     const newDailyTask = new DailyTask({
         day: req.body.day,
         description: req.body.description,
-        date: new Date().toLocaleString()
+
     });
 
-    newDailyTask.save().then(result =>{
-        res.json(result);
+    newDailyTask.save().then(task =>{
+        res.json(task);
     });
 }
 

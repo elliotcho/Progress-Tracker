@@ -10,7 +10,7 @@
 }
 
 .progressHistory .nav-tabs li{
-    width: 33.3%;
+    width: 100%;
     border-bottom: 0;
 }
 
@@ -19,11 +19,7 @@
     border-radius: 0;
     border-color: white;
     font-family: 'Nunito';
-}
-
-.progressHistory .nav-tabs a:hover{
-    background: gray;
-    color: white;
+    cursor: auto;
 }
 
 .settings p{

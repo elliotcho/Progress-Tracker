@@ -4,7 +4,7 @@ const Schema=mongoose.Schema;
 const WeeklyObjectiveSchema=new Schema({
     description: String,
     checked: Boolean, 
-    date: Date
+    date: String
 });
 
 const DailyTaskSchema=new Schema({

@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import DailyProgress from './Components/DailyProgress';
-import WeeklyProgress from './Components/WeeklyProgress';
-import Settings from './Components/Settings';
+import Settings from './Settings';
 import Navbar from '../Navbar';
 import './ProgressHistory.css';
 
@@ -18,21 +16,11 @@ class ProgressHistory extends Component{
   
                 <section className='progressContainer'>
                     <ul className='nav nav-tabs'>
-                        <li><a className='nav-link active' data-toggle='tab' href='#daily'>Daily Progress</a></li>
-                        <li><a className='nav-link' data-toggle='tab' href='#weekly'>Weekly Progress</a></li>
-                        <li><a className='nav-link' data-toggle='tab' href='#settings'>Settings</a></li>
+                        <li><a className='nav-link active' data-toggle='tab' href='#settings'>Settings</a></li>
                     </ul>
 
                     <div className='tab-content'>
-                        <section id='daily' className='tab-pane active'>
-                            <DailyProgress/>
-                        </section>
-
-                        <section id='weekly' className='tab-pane'>
-                            <WeeklyProgress/>
-                        </section>
-
-                        <section id='settings' className='tab-pane'>
+                        <section id='settings' className='tab-pane active'>
                             <Settings/> 
                         </section>
                     </div>

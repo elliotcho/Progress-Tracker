@@ -19,10 +19,6 @@ class Settings extends Component{
                 <p onClick={()=>{this.clear('/clearobjs', 'your Weekly Objectives')}}>Clear Weekly Objectives</p>
                 
                 <p onClick={()=>{this.clear('/cleargoals', 'your Goals')}}>Clear Goals</p>
-                
-                <p onClick={()=>{this.clear('/clearprogress', 'your Progress Tracker')}}>Clear Progress History</p>
-                
-                <p onClick={()=>{this.clear('/clearall', 'all your saved data')}}>Clear All</p>
             </div>
         )
     }
