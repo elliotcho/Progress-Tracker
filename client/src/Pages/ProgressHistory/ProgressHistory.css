@@ -35,8 +35,7 @@
 }
 
 .settings p:hover{
-    background: lightgreen;
-    color: black;
+    background: red;
 }
 
 .dailyProgress, .weeklyProgress{

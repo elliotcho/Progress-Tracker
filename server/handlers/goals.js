@@ -22,3 +22,9 @@ exports.deleteGoal = (req, res) =>{
         res.json('Success');
     });
 };
+
+exports.clearGoals = (req, res) =>{
+    Goal.deleteMany({}).then(()=>{
+        res.json(({msg: 'Success'}));
+    });
+}

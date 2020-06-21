@@ -28,3 +28,9 @@ exports.checkWeeklyObjective = (req, res) =>{
         res.json({msg: 'Success'});
     });
 }
+
+exports.clearObjectives = (req, res) =>{
+    WeeklyObjective.deleteMany({}).then(()=>{
+        res.json({msg: 'Success'});
+    });
+}

@@ -22,3 +22,9 @@ exports.deleteDailyTask = (req, res) =>{
         res.json({msg: 'Success'});
     });
 }
+
+exports.clearTasks = (req ,res) =>{
+    DailyTask.deleteMany({}).then(()=>{
+        res.json({msg: 'Success'});
+    });
+}

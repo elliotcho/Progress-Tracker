@@ -26,32 +26,38 @@ const {
     loadWeeklyObjectives,
     addWeeklyObjective,
     deleteWeeklyObjective,
-    checkWeeklyObjective
+    checkWeeklyObjective, 
+    clearObjectives
 }=require('./handlers/weekly');
 
 const {
     loadDailyTask,
     addDailyTask,
-    deleteDailyTask
+    deleteDailyTask, 
+    clearTasks
 } =require('./handlers/daily');
 
 const {
     loadGoal,
     addGoal,
-    deleteGoal
+    deleteGoal,
+    clearGoals
 } =require('./handlers/goals');
 
 app.post('/loadobj', loadWeeklyObjectives);
 app.post('/addobj', addWeeklyObjective);
 app.post('/deleteobj', deleteWeeklyObjective);
 app.post('/checkobj', checkWeeklyObjective);
+app.post('/clearobjs', clearObjectives);
 
 app.post('/loadtask', loadDailyTask);
 app.post('/addtask', addDailyTask);
 app.post('/deletetask', deleteDailyTask);
+app.post('/cleartasks', clearTasks);
 
 app.post('/loadgoal', loadGoal);
 app.post('/addgoal', addGoal);
 app.post('/deletegoal', deleteGoal);
+app.post('/cleargoals', clearGoals);
 
 app.listen(3000);
