@@ -31,7 +31,7 @@ class Goals extends Component{
     }
 
     componentDidMount(){
-        axios.post('/loadgoal').then(response =>{
+        axios.post('http://localhost:5000/loadgoal').then(response =>{
             const {goals} = this.state;
 
             response.data.forEach(goal => {
@@ -66,7 +66,7 @@ class Goals extends Component{
         }
 
         this.setState({goals}, ()=>{
-            axios.post('/deletegoal', {id}, {headers: {'Content-Type': 'application/json'}})
+            axios.post('http://localhost:5000/deletegoal', {id}, {headers: {'Content-Type': 'application/json'}})
             .then(()=>{});
         });
     }
@@ -81,7 +81,7 @@ class Goals extends Component{
 
         this.setState({[tier]: ''});
 
-        axios.post('/addgoal', {tier, description: goal}, {headers: {'Content-Type': 'application/json'}})
+        axios.post('http://localhost:5000/addgoal', {tier, description: goal}, {headers: {'Content-Type': 'application/json'}})
         .then(response =>{
             const goals=this.state.goals;
 

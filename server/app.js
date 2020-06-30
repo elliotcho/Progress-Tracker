@@ -1,6 +1,7 @@
 //require modules
 const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
+const cors=require('cors');
 const express=require('express');
 const app=express();
 
@@ -14,13 +15,8 @@ mongoose.connection.once('open', ()=>{
     console.log('Connected to database');
 }).on('error', err => {console.log(err);});
 
-//set up body-parser and static files
 app.use(bodyParser.json());
-app.use(express.static('../client/build'));
-
-app.get('/', (req, res) => {
-    res.sendFile('../client/build/index.html');
-});
+app.use(cors());
 
 const {
     loadWeeklyObjectives,
@@ -60,4 +56,4 @@ app.post('/addgoal', addGoal);
 app.post('/deletegoal', deleteGoal);
 app.post('/cleargoals', clearGoals);
 
-app.listen(3000);
+app.listen(5000);

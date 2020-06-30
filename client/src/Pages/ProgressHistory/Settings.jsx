@@ -14,11 +14,11 @@ class Settings extends Component{
     render(){
         return(
             <div className='settings'>
-                <p onClick={() => {this.clear('/cleartasks', 'your Daily Tracker')}}>Clear Daily Tracker</p>
+                <p onClick={() => {this.clear('http://localhost:5000/cleartasks', 'your Daily Tracker')}}>Clear Daily Tracker</p>
                 
-                <p onClick={()=>{this.clear('/clearobjs', 'your Weekly Objectives')}}>Clear Weekly Objectives</p>
+                <p onClick={()=>{this.clear('http://localhost:5000/clearobjs', 'your Weekly Objectives')}}>Clear Weekly Objectives</p>
                 
-                <p onClick={()=>{this.clear('/cleargoals', 'your Goals')}}>Clear Goals</p>
+                <p onClick={()=>{this.clear('http://localhost:5000/cleargoals', 'your Goals')}}>Clear Goals</p>
             </div>
         )
     }

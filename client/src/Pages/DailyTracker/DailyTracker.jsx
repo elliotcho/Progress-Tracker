@@ -35,7 +35,7 @@ class DailyTracker extends Component{
     }
 
     componentDidMount(){
-        axios.post('/loadtask').then(response =>{
+        axios.post('http://localhost:5000/loadtask').then(response =>{
             const {tasks} = this.state;
 
             response.data.forEach(task =>{
@@ -69,7 +69,7 @@ class DailyTracker extends Component{
         }
 
         this.setState({tasks}, ()=>{
-            axios.post('/deletetask', {id}, {headers: {'Content-Type': 'application/json'}})
+            axios.post('http://localhost:5000/deletetask', {id}, {headers: {'Content-Type': 'application/json'}})
             .then(()=>{});
         });
     }
@@ -84,7 +84,7 @@ class DailyTracker extends Component{
 
         this.setState({[day]: ''});
 
-        axios.post('/addtask', {day, description: value}, {headers: {'Content-Type': 'application/json'}})
+        axios.post('http://localhost:5000/addtask', {day, description: value}, {headers: {'Content-Type': 'application/json'}})
         .then(response =>{
             const tasks=this.state.tasks;
 

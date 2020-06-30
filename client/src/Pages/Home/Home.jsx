@@ -18,7 +18,7 @@ class Home extends Component{
     }
 
     componentDidMount(){
-        axios.post('/loadobj').then(response =>{
+        axios.post('http://localhost:5000/loadobj').then(response =>{
             this.setState({
                 objectives: response.data 
             });
@@ -38,7 +38,7 @@ class Home extends Component{
         }
 
         this.setState({objectives}, ()=>{
-            axios.post('/deleteobj', {id}, {headers: {'Content-Type': 'application/json'}})
+            axios.post('http://localhost:5000/deleteobj', {id}, {headers: {'Content-Type': 'application/json'}})
             .then(() => {});
         });
     }
@@ -57,7 +57,7 @@ class Home extends Component{
         }
 
         this.setState({objectives}, ()=>{
-            axios.post('/checkobj', {id, checked}, {headers: {'Content-Type': 'application/json'}})
+            axios.post('http://localhost:5000/checkobj', {id, checked}, {headers: {'Content-Type': 'application/json'}})
             .then(()=>{});
         });
     }
@@ -73,7 +73,7 @@ class Home extends Component{
 
         e.target.objective.value="";
 
-        axios.post('/addobj', {description: value}, {headers: {'Content-Type': 'application/json'}})
+        axios.post('http://localhost:5000/addobj', {description: value}, {headers: {'Content-Type': 'application/json'}})
         .then(response => {
             const objectives=this.state.objectives;
 
